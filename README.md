@@ -19,7 +19,7 @@ You can install Selenium and Chrome WebDriver using pip:
 pip install selenium
 pip install webdriver_manager
 
-**Getting Started**
+# Getting Started
 
 1. Clone the repository to your local machine: 
         git clone https://github.com/your-username/leetcode-scraper.git
