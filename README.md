@@ -1,24 +1,27 @@
 # AZ-Hackathon-2023
 
+## Project Summary
+This project aims to develop an intelligent search engine that allows users to search for coding problems from platforms like LeetCode, CodeChef, and Codeforces. Users can input keywords and receive a list of relevant coding problems that match their search criteria. The search engine provides problem details such as title, difficulty level, and a link to the original problem. It also allows users to filter search results based on difficulty level and programming language. The search engine utilizes the TF-IDF algorithm to ensure the relevance and accuracy of the returned problems. However, it currently excludes Algozenith's questions from the search results, although they might be integrated in the future.
+
 # LeetCode Scraper
 
 This Python script allows you to scrape problem links and their data from LeetCode using Selenium and Chrome WebDriver.
 
 ## Prerequisites
 
-Before running the script, make sure you have the following installed:
+        Before running the script, make sure you have the following installed:
 
-- Python 3
-- Anaconda
-- Selenium
-- Chrome WebDriver
+        - Python 3
+        - Anaconda
+        - Selenium
+        - Chrome WebDriver
 
-You can install Selenium and Chrome WebDriver using pip:
+        You can install Selenium and Chrome WebDriver using pip:
 
-```shell
-pip install selenium
-pip install webdriver_manager
-
+        ```shell
+        pip install selenium
+        pip install webdriver_manager
+        
 ## Getting Started
 
 1. Clone the repository to your local machine: 
@@ -36,6 +39,7 @@ pip install webdriver_manager
 7. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data.
 
 ## Customization
+
 -You can modify the code to scrape different sections or specific problem sets by adjusting the page_URL variable.
 -The script creates a Qdatalc folder to store the scraped data. You can change the folder name or customize the folder structure by modifying the code in the script.
 
