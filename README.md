@@ -19,7 +19,7 @@ You can install Selenium and Chrome WebDriver using pip:
 pip install selenium
 pip install webdriver_manager
 
-# Getting Started
+### Getting Started
 
 1. Clone the repository to your local machine: 
         git clone https://github.com/your-username/leetcode-scraper.git
@@ -35,7 +35,7 @@ pip install webdriver_manager
         python leetcode_scraper.py
 7. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data.
 
-Customization
+#### Customization
 -You can modify the code to scrape different sections or specific problem sets by adjusting the page_URL variable.
 -The script creates a Qdatalc folder to store the scraped data. You can change the folder name or customize the folder structure by modifying the code in the script.
 
