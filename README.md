@@ -43,6 +43,28 @@ This Python script allows you to scrape problem links and their data from LeetCo
 -You can modify the code to scrape different sections or specific problem sets by adjusting the page_URL variable.
 -The script creates a Qdatalc folder to store the scraped data. You can change the folder name or customize the folder structure by modifying the code in the script.
 
+## Problem Scrapping
+
+This project not only provides access to coding problems from LeetCode but also includes scrapping problems from CodeChef and Codeforces. The scrapping functionality allows users to access a diverse range of coding challenges from these platforms.
+
+### CodeChef
+
+The search engine retrieves coding problems from CodeChef by leveraging its API. It fetches problem details such as problem title, difficulty level, and additional metadata. Users can search for CodeChef problems using relevant keywords and receive a list of suitable matches.
+
+### Codeforces
+
+Similarly, the search engine retrieves coding problems from Codeforces by utilizing its API. It fetches problem details such as problem title, difficulty level, and other relevant information. Users can search for Codeforces problems based on specific criteria and get a curated list of appropriate challenges.
+
+Please note that the search engine integrates the problems from LeetCode, CodeChef, and Codeforces to provide users with a comprehensive collection of coding challenges to explore.
+
+## Future Enhancements
+
+This project is an ongoing effort, and there are plans to implement additional features and improvements in the future. Some of the upcoming enhancements include:
+
+- Adding support for other popular coding platforms like Codeforces and CodeChef.
+- Enhancing the search algorithm to provide more accurate and relevant search results.
+
+Please note that these are just some of the planned enhancements, and the project will continue to evolve to meet the needs of the users and the developer community.
 
 Feel free to contribute to the project by submitting pull requests or reporting issues.
 
