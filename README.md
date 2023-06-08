@@ -36,7 +36,7 @@ This Python script allows you to scrape problem links and their data from LeetCo
 5. Update the page_URL variable in the script to specify the LeetCode problem set URL you want to scrape.
 6. Run the script:
         python leetcode_scraper.py
-7. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data.
+7. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data. Inside the qdatalc folder, you will find a data folder that contains the scraped questions files, indexlc.txt, and qindexlc.txt.
 
 ## Customization
 
