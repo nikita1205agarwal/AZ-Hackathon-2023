@@ -25,19 +25,19 @@ This Python script allows you to scrape problem links and their data from LeetCo
         
 ## Getting Started
 
-1. Clone the repository to your local machine: 
-        - git clone https://github.com/your-username/leetcode-scraper.git
-2. Navigate to the project directory:
-        cd leetcode-scraper
-3. Create a virtual environment (optional but recommended):
-        - conda create --name leetcode-scraper-env python=3.9
-        - conda activate leetcode-scraper-env
-4. Install the required packages:
-        - pip install -r requirements.txt
-6. Update the page_URL variable in the script to specify the LeetCode problem set URL you want to scrape.
-7. Run the script:
-        - python leetcode_scraper.py
-9. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data. Inside the qdatalc folder, you will find a data folder that contains the scraped questions files, indexlc.txt, and qindexlc.txt.
+        1. Clone the repository to your local machine: 
+                - git clone https://github.com/your-username/leetcode-scraper.git
+        2. Navigate to the project directory:
+                - cd leetcode-scraper
+        3. Create a virtual environment (optional but recommended):
+                - conda create --name leetcode-scraper-env python=3.9
+                - conda activate leetcode-scraper-env
+        4. Install the required packages:
+                - pip install -r requirements.txt
+        6. Update the page_URL variable in the script to specify the LeetCode problem set URL you want to scrape.
+        7. Run the script:
+                - python leetcode_scraper.py
+        9. The script will scrape the problem links from the specified LeetCode page, clean the links, and store them in a text file named lc_problems.txt. It will also create a Qdatalc folder to store the scraped data. Inside the qdatalc folder, you will find a data folder that contains the scraped questions files, indexlc.txt, and qindexlc.txt.
 
 ## TF-IDF Implementation
 The project also includes an implementation of the TF-IDF algorithm for text analysis. This algorithm calculates the relevance scores of documents based on the frequency of terms in each document and their inverse document frequency across the entire collection.
