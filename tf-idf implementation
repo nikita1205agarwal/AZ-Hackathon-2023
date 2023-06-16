@@ -23,7 +23,7 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    directory = 'C:/Users/NIKITA/Desktop/Algozenith Scrapping Project/'
+    directory = '/'
     file_names = []
 
     file_names.append(os.path.join(directory, 'Qdatalc/indexlc.txt'))
