@@ -23,27 +23,37 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    filename = '/Qdatalc/indexlc.txt'
-    my_encoding = find_encoding(filename)
+    directory = 'C:/Users/NIKITA/Desktop/Algozenith Scrapping Project/'
+    file_names = []
 
-    with open(filename, 'r', encoding=my_encoding) as f:
-        lines = f.readlines()
+    file_names.append(os.path.join(directory, 'Qdatalc/indexlc.txt'))
+    file_names.append(os.path.join(directory, 'Qdatalc/Qindexlc.txt'))
+
+    for root, dirs, files in os.walk(os.path.join(directory, 'data')):
+        for file in files:
+            file_names.append(os.path.join(root, file))
     
-    for index, line in enumerate(lines):
-        tokens = preprocess(line)
-        documents.append(tokens)
-        for token in tokens:
-            vocab[token] = vocab.get(token, 0) + 1
-            if token not in inverted_index:
-                inverted_index[token] = [index]
-            else:
-                inverted_index[token].append(index)
+    for filename in file_names:
+        my_encoding = find_encoding(filename)
+
+        with open(filename, 'r', encoding=my_encoding) as f:
+            lines = f.readlines()
+            
+        for index, line in enumerate(lines):
+            tokens = preprocess(line)
+            documents.append(tokens)
+            for token in tokens:
+                vocab[token] = vocab.get(token, 0) + 1
+                if token not in inverted_index:
+                    inverted_index[token] = [index]
+                else:
+                    inverted_index[token].append(index)
 
     vocab = dict(sorted(vocab.items(), key=lambda item: item[1], reverse=True))
     save_data(vocab, documents, inverted_index)
 
     return vocab, documents, inverted_index
-
+            
 # Save the vocabulary, IDF values, documents, and inverted index into separate text files
 def save_data(vocab, documents, inverted_index):
     # Save the vocab in a text file
