@@ -4,3 +4,4 @@ nltk
 flask
 flask-wtf
 gunicorn
+chardet
