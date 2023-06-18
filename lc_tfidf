@@ -1,5 +1,6 @@
 # Import required libraries
 import chardet
+import os
 import math
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -11,13 +12,13 @@ def find_encoding(fname):
     charenc = result['encoding']
     return charenc
 
-# Data pre-processing: stopwords removal and removal of any leading numbers from the string
+# data pre-processing: stopwords removal and removal of any leading numbers from the string
 def preprocess(document_text):
     stopwords_set = set(stopwords.words('english'))
     terms = [term.lower() for term in document_text.strip().split()[1:] if term.lower() not in stopwords_set]
     return terms
 
-# Read the input file, preprocess the data, build the vocabulary, and construct the inverted index.
+# read the input file, preprocess the data, build the vocabulary, and construct the inverted index.   
 def load_data():
     vocab = {}
     documents = []
@@ -53,7 +54,7 @@ def load_data():
     save_data(vocab, documents, inverted_index)
 
     return vocab, documents, inverted_index
-            
+
 # Save the vocabulary, IDF values, documents, and inverted index into separate text files
 def save_data(vocab, documents, inverted_index):
     # Save the vocab in a text file
@@ -116,7 +117,7 @@ def load_inverted_index():
     
     print('Size of inverted index:', len(inverted_index))
     return inverted_index
-    
+
 # Calculate term frequency
 def get_tf_dictionary(term):
     tf_values = {}
@@ -136,14 +137,36 @@ def get_tf_dictionary(term):
 def get_idf_value(term):
     return math.log(len(documents) / vocab_idf_values[term])
 
-# # Calculate the relevance scores for the given query terms and retrieve the matching documents
+# extract heading part
+def fetch_text_by_index(file_path, index):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        for line_num, line in enumerate(lines):
+            parts = line.strip().split('.', 1)
+            file_index = int(parts[0])
+            text = parts[1]
+            if file_index == index:
+                return text.strip(), line_num
+    return None, None  # Return None if index is not found
+
+# extract url of the corresponding heading
+def fetch_data_by_line(file_path, line_number):
+    if line_number is None:
+        return None  # Return None if line number is None
+
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        if 0 <= line_number < len(lines):
+            return lines[line_number].strip()
+    return None  # Return None if line number is out of range
+
+# Calculate the relevance scores for the given query terms and retrieve the matching documents
 def calculate_sorted_order_of_documents(query_terms):
     potential_documents = {}
     for term in query_terms:
         if term in vocab_idf_values and vocab_idf_values[term] != 0:
             tf_values_by_document = get_tf_dictionary(term)
             idf_value = get_idf_value(term)
-            print(term, tf_values_by_document, idf_value)
             for document in tf_values_by_document:
                 if document not in potential_documents:
                     potential_documents[document] = tf_values_by_document[document] * idf_value
@@ -151,14 +174,24 @@ def calculate_sorted_order_of_documents(query_terms):
                     potential_documents[document] += tf_values_by_document[document] * idf_value
 
     if not potential_documents:
-        print("No matching documents found.")
-
+        return []
     else:
-        # divide by the length of the query terms
         for document in potential_documents:
             potential_documents[document] /= len(query_terms)
-            
-        potential_documents = dict(sorted(potential_documents.items(), key=lambda item: item[1], reverse=True))
 
-        for document_index in potential_documents:
-            print('Document: ', documents[int(document_index)], ' Score: ', potential_documents[document_index])
+        potential_documents = dict(sorted(potential_documents.items(), key=lambda item: item[1], reverse=True))
+        # print(potential_documents) key, score
+
+        sorted_documents = []
+        directory = '/Qdatalc'
+    
+
+        heading = '/indexlc.txt'
+        link = '/Qindexlc.txt'
+        
+        for doc_index in potential_documents:
+            heading_text, line_number = fetch_text_by_index(heading, doc_index)
+            url_text = fetch_data_by_line(link, line_number)
+            sorted_documents.append((doc_index, heading_text, url_text))
+
+        return sorted_documents
