@@ -1,11 +1,7 @@
 from flask import Flask, render_template, request, redirect
-from lc_tfidf import load_data, calculate_sorted_order_of_documents
+from lc_tfidf import load_data, calculate_sorted_order_of_documents, load_vocab, load_documents, load_inverted_index
 
 app = Flask(__name__)
-
-# Load the data using the tf-idf module
-vocab, documents, inverted_index = load_data()
-
 
 @app.route('/')
 def home():
@@ -16,6 +12,10 @@ def home():
 def search():
     query_string = request.form['keywords']
     query_terms = [term.lower() for term in query_string.strip().split()]
+
+    # Load or retrieve the data from cache
+    #vocab, documents, inverted_index = load_and_process_data()
+
     sorted_documents = calculate_sorted_order_of_documents(query_terms)
 
     results = []
@@ -32,7 +32,7 @@ def problem(problem_id):
         return redirect(url)
     else:
         return "Invalid problem ID"
-        
+
 # Ignore request for favicon.ico
 @app.route('/favicon.ico')
 def favicon():
