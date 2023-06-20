@@ -1,6 +1,6 @@
 selenium
 webdriver_manager
-nltk
+nltk==3.6.5
 flask
 flask-wtf
 gunicorn
