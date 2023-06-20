@@ -26,7 +26,7 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    directory = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/'
+    directory = 'Qdatalc/'
     file_names = []
 
     file_names.append(os.path.join(directory, 'indexlc.txt'))
@@ -170,8 +170,8 @@ def calculate_sorted_order_of_documents(query_terms):
 
         sorted_documents = []
 
-        heading = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/indexlc.txt'
-        link = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/Qindexlc.txt'
+        heading = 'Qdatalc/indexlc.txt'
+        link = 'Qdatalc/Qindexlc.txt'
         index=0
         for doc_index in potential_documents:
             #doc_index = int(doc_index)
