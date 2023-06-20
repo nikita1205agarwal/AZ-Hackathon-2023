@@ -188,6 +188,7 @@ def calculate_sorted_order_of_documents(query_terms):
         link = 'Qdatalc/Qindexlc.txt'
         
         for doc_index in potential_documents:
+            doc_index = int(doc_index)
             heading_text = fetch_text_by_index(heading, doc_index)
             if heading_text is None:
                 continue
