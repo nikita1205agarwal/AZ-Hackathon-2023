@@ -102,8 +102,8 @@ def load_documents():
         documents = f.readlines()
     documents = [document.strip().split() for document in documents]
 
-    print('Number of documents:', len(documents))
-    print('Sample document:', documents[0])
+    #print('Number of documents:', len(documents))
+    #print('Sample document:', documents[0])
     return documents
 
 # Load the inverted index from a text file
@@ -119,6 +119,10 @@ def load_inverted_index():
     
     print('Size of inverted index:', len(inverted_index))
     return inverted_index
+
+vocab_idf_values = load_vocab()
+documents = load_documents()
+inverted_index = load_inverted_index()
 
 # Calculate term frequency
 def get_tf_dictionary(term):
@@ -141,26 +145,21 @@ def get_idf_value(term):
 
 # extract heading part
 def fetch_text_by_index(file_path, index):
-    with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
-        lines = file.readlines()
-        for line_num, line in enumerate(lines):
-            parts = line.strip().split('.', 1)
-            file_index = int(parts[0])
-            text = parts[1]
-            if file_index == index:
-                return text.strip(), line_num
-    return None, None  # Return None if index is not found
-
-# extract url of the corresponding heading
-def fetch_data_by_line(file_path, line_number):
-    if line_number is None:
+    if index is None:
         return None  # Return None if line number is None
 
     with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
         lines = file.readlines()
-        if 0 <= line_number < len(lines):
-            return lines[line_number].strip()
+        if 0 <= index < len(lines):
+            parts = line.strip().split('.', 1)
+            return parts[1]
     return None  # Return None if line number is out of range
+
+# extract url of the corresponding heading
+def fetch_data_by_line(file_path, line_number):
+    with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
+        lines = file.readlines()
+        return lines[line_number].strip()
 
 # Calculate the relevance scores for the given query terms and retrieve the matching documents
 def calculate_sorted_order_of_documents(query_terms):
@@ -172,8 +171,7 @@ def calculate_sorted_order_of_documents(query_terms):
             for document in tf_values_by_document:
                 if document not in potential_documents:
                     potential_documents[document] = tf_values_by_document[document] * idf_value
-                else:
-                    potential_documents[document] += tf_values_by_document[document] * idf_value
+                potential_documents[document] += tf_values_by_document[document] * idf_value
 
     if not potential_documents:
         return []
@@ -189,11 +187,11 @@ def calculate_sorted_order_of_documents(query_terms):
         heading = 'Qdatalc/indexlc.txt'
         link = 'Qdatalc/Qindexlc.txt'
         
-        for doc_index in list(potential_documents.keys())[:10]:
-            heading_text, line_number = fetch_text_by_index(heading, doc_index)
+        for doc_index in potential_documents:
+            heading_text = fetch_text_by_index(heading, doc_index)
             if heading_text is None:
                 continue
-            url_text = fetch_data_by_line(link, line_number)
+            url_text = fetch_data_by_line(link, doc_index)
             sorted_documents.append((doc_index, heading_text, url_text))
 
         return sorted_documents
