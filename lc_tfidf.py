@@ -24,11 +24,11 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    directory = '/'
+    directory = '/Qdatalc/'
     file_names = []
 
-    file_names.append(os.path.join(directory, 'Qdatalc/indexlc.txt'))
-    file_names.append(os.path.join(directory, 'Qdatalc/Qindexlc.txt'))
+    file_names.append(os.path.join(directory, 'indexlc.txt'))
+    file_names.append(os.path.join(directory, 'Qindexlc.txt'))
 
     for root, dirs, files in os.walk(os.path.join(directory, 'data')):
         for file in files:
