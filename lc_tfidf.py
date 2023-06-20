@@ -117,7 +117,7 @@ def load_inverted_index():
         documents = inverted_index_terms[row_num + 1].strip().split()
         inverted_index[term] = documents
     
-    print('Size of inverted index:', len(inverted_index))
+    #print('Size of inverted index:', len(inverted_index))
     return inverted_index
 
 vocab_idf_values = load_vocab()
