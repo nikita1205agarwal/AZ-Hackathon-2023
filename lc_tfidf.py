@@ -37,7 +37,7 @@ def load_data():
             file_names.append(os.path.join(root, file))
     
     for filename in file_names:
-         my_encoding = find_encoding(filename)
+        my_encoding = find_encoding(filename)
 
         with open(filename, 'r', encoding=my_encoding) as f:
             lines = f.readlines()
