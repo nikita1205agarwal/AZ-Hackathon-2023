@@ -3,7 +3,7 @@ import chardet
 import os
 import math
 import nltk
-nltk.download('stopwords')
+#nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
@@ -26,7 +26,7 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    directory = 'Qdatalc/'
+    directory = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/'
     file_names = []
 
     file_names.append(os.path.join(directory, 'indexlc.txt'))
@@ -55,8 +55,6 @@ def load_data():
     vocab = dict(sorted(vocab.items(), key=lambda item: item[1], reverse=True))
     save_data(vocab, documents, inverted_index)
 
-    return vocab, documents, inverted_index
-
 # Save the vocabulary, IDF values, documents, and inverted index into separate text files
 def save_data(vocab, documents, inverted_index):
     # Save the vocab in a text file
@@ -80,8 +78,6 @@ def save_data(vocab, documents, inverted_index):
             f.write("%s\n" % key)
             f.write("%s\n" % ' '.join([str(doc_id) for doc_id in inverted_index[key]]))
 
-vocab_idf_values, documents, inverted_index = load_data()
-
 # Load the vocabulary and IDF values from the text files
 def load_vocab():
     vocab = {}
@@ -92,7 +88,6 @@ def load_vocab():
     
     for (term, idf_value) in zip(vocab_terms, idf_values):
         vocab[term.strip()] = int(idf_value.strip())
-    
     return vocab
 
 # Load the preprocessed documents from the text file
@@ -101,9 +96,6 @@ def load_documents():
     with open('tf-idf_lc/documents_lc.txt', 'r', encoding='utf-8') as f:
         documents = f.readlines()
     documents = [document.strip().split() for document in documents]
-
-    #print('Number of documents:', len(documents))
-    #print('Sample document:', documents[0])
     return documents
 
 # Load the inverted index from a text file
@@ -116,13 +108,7 @@ def load_inverted_index():
         term = inverted_index_terms[row_num].strip()
         documents = inverted_index_terms[row_num + 1].strip().split()
         inverted_index[term] = documents
-    
-    #print('Size of inverted index:', len(inverted_index))
     return inverted_index
-
-vocab_idf_values = load_vocab()
-documents = load_documents()
-inverted_index = load_inverted_index()
 
 # Calculate term frequency
 def get_tf_dictionary(term):
@@ -144,6 +130,7 @@ def get_idf_value(term):
     return math.log(len(documents) / vocab_idf_values[term])
 
 # extract heading part
+
 def fetch_text_by_index(file_path, index):
     if index is None:
         return None  # Return None if line number is None
@@ -152,8 +139,7 @@ def fetch_text_by_index(file_path, index):
         lines = file.readlines()
         line = lines[index]
         parts = line.strip().split('.', 1)
-        return parts[1]
-    #return None  # Return None if line number is out of range
+        return parts[1].strip()
 
 # extract url of the corresponding heading
 def fetch_data_by_line(file_path, line_number):
@@ -184,8 +170,8 @@ def calculate_sorted_order_of_documents(query_terms):
 
         sorted_documents = []
 
-        heading = 'Qdatalc/indexlc.txt'
-        link = 'Qdatalc/Qindexlc.txt'
+        heading = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/indexlc.txt'
+        link = 'C:/Users/NIKITA/Desktop/AlgozenithScrappingProject/Qdatalc/Qindexlc.txt'
         index=0
         for doc_index in potential_documents:
             #doc_index = int(doc_index)
@@ -198,3 +184,8 @@ def calculate_sorted_order_of_documents(query_terms):
             sorted_documents.append((doc_index, heading_text, url_text))
 
         return sorted_documents
+
+load_data()
+vocab_idf_values = load_vocab()
+documents = load_documents()
+inverted_index = load_inverted_index()
