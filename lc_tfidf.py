@@ -61,19 +61,19 @@ def save_data(vocab, documents, inverted_index):
     output_dir.mkdir(exist_ok=True)
 
     # Save the vocab in a text file
-    with open(output_dir / 'vocab_lc.txt', 'w', encoding='utf-8') as f:
+    with open(output_dir / 'vocab_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/vocab_lc.txt')) as f:
         f.write('\n'.join(vocab.keys()))
 
     # Save the idf values in a text file
-    with open(output_dir / 'idf-values_lc.txt', 'w', encoding='utf-8') as f:
+    with open(output_dir / 'idf-values_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/idf-values_lc.txt')) as f:
         f.write('\n'.join(str(vocab[key]) for key in vocab.keys()))
 
     # Save the documents in a text file
-    with open(output_dir / 'documents_lc.txt', 'w', encoding='utf-8') as f:
+    with open(output_dir / 'documents_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/documents_lc.txt')) as f:
         f.write('\n'.join(' '.join(document) for document in documents))
 
     # Save the inverted index in a text file
-    with open(output_dir / 'inverted-index_lc.txt', 'w', encoding='utf-8') as f:
+    with open(output_dir / 'inverted-index_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/inverted-index_lc.txt')) as f:
         for key, value in inverted_index.items():
             f.write(f"{key}\n")
             f.write(' '.join(str(doc_id) for doc_id in value))
