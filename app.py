@@ -32,7 +32,11 @@ def problem(problem_id):
         return redirect(url)
     else:
         return "Invalid problem ID"
-
+        
+# Ignore request for favicon.ico
+@app.route('/favicon.ico')
+def favicon():
+    return '', 404
 
 if __name__ == '__main__':
     app.run(debug=True)
