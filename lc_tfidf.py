@@ -10,7 +10,7 @@ from collections import Counter
 
 # Detect the encoding of a file
 def find_encoding(fname):
-    with open(fname, 'rb') as f:
+    with open(fname, 'rb', encoding='utf-8') as f:
         r_file = f.read()
         result = chardet.detect(r_file)
         charenc = result['encoding']
