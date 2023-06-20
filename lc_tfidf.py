@@ -186,13 +186,15 @@ def calculate_sorted_order_of_documents(query_terms):
 
         heading = 'Qdatalc/indexlc.txt'
         link = 'Qdatalc/Qindexlc.txt'
-        
+        index=0
         for doc_index in potential_documents:
-            doc_index = int(doc_index)
-            heading_text = fetch_text_by_index(heading, doc_index)
+            #doc_index = int(doc_index)
+            heading_text = fetch_text_by_index(heading, index)
             if heading_text is None:
+                index=index+1
                 continue
-            url_text = fetch_data_by_line(link, doc_index)
+            url_text = fetch_data_by_line(link, index)
+            index=index+1
             sorted_documents.append((doc_index, heading_text, url_text))
 
         return sorted_documents
