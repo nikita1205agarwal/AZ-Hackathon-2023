@@ -150,10 +150,10 @@ def fetch_text_by_index(file_path, index):
 
     with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
         lines = file.readlines()
-        if 0 <= index < len(lines):
-            parts = line.strip().split('.', 1)
-            return parts[1]
-    return None  # Return None if line number is out of range
+        #if 0 <= index < len(lines):
+        parts = line.strip().split('.', 1)
+        return parts[1]
+    #return None  # Return None if line number is out of range
 
 # extract url of the corresponding heading
 def fetch_data_by_line(file_path, line_number):
