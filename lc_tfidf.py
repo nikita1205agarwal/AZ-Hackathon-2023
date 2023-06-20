@@ -10,11 +10,13 @@ from collections import Counter
 
 # Detect the encoding of a file
 def find_encoding(fname):
-    with open(fname, 'rb', encoding='utf-8') as f:
-        r_file = f.read()
-        result = chardet.detect(r_file)
-        charenc = result['encoding']
-    return charenc
+    try:
+        with open(fname, 'rb') as f:
+            result = chardet.detect(f.read())
+            charenc = result['encoding']
+            return charenc
+    except Exception:
+        return 'utf-8'
 
 # Data pre-processing: stopwords removal and removal of any leading numbers from the string
 def preprocess(document_text):
