@@ -13,9 +13,6 @@ def search():
     query_string = request.form['keywords']
     query_terms = [term.lower() for term in query_string.strip().split()]
 
-    # Load or retrieve the data from cache
-    #vocab, documents, inverted_index = load_and_process_data()
-
     sorted_documents = calculate_sorted_order_of_documents(query_terms)
 
     results = []
