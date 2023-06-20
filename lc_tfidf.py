@@ -37,9 +37,9 @@ def load_data():
             file_names.append(os.path.join(root, file))
     
     for filename in file_names:
-        # my_encoding = find_encoding(filename)
+         my_encoding = find_encoding(filename)
 
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, 'r', encoding=my_encoding) as f:
             lines = f.readlines()
             
         for index, line in enumerate(lines):
@@ -141,7 +141,7 @@ def get_idf_value(term):
 
 # extract heading part
 def fetch_text_by_index(file_path, index):
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
         lines = file.readlines()
         for line_num, line in enumerate(lines):
             parts = line.strip().split('.', 1)
@@ -156,7 +156,7 @@ def fetch_data_by_line(file_path, line_number):
     if line_number is None:
         return None  # Return None if line number is None
 
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding=find_encoding(file_path)) as file:
         lines = file.readlines()
         if 0 <= line_number < len(lines):
             return lines[line_number].strip()
