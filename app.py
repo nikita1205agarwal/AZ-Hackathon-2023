@@ -228,13 +228,15 @@ def search():
     
     # Perform the search using the loaded data
     search_results = search_query(query)
-    return render_template('search.html', query=query, results=search_results)
+    return render_template('results.html', query=query, results=search_results)
 
 def search_query(query):
-    # Implementation of the search query logic
-    # Use the loaded data (vocab_idf_values, documents, inverted_index) to perform the search
-    # Return the search results
-    pass
+    query_terms = [term.lower() for term in query.strip().split()]
+    sorted_documents = calculate_sorted_order_of_documents(query_terms)
+    search_results = []
+    for doc_index, doc in enumerate(sorted_documents):
+        search_results.append({'heading': doc[1], 'url': doc[2], 'index': doc_index})
+    return search_results
     
 @app.route('/problem/<int:problem_id>')
 def problem(problem_id):
