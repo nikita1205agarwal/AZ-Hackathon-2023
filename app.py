@@ -32,14 +32,15 @@ def load_data():
     documents = []
     inverted_index = {}
 
-    directory = Path('Qdatalc/')
-    file_names = [
-        directory / 'indexlc.txt',
-        directory / 'Qindexlc.txt',
-    ]
+    directory = 'Qdatalc/'
+    file_names = []
 
-    data_directory = directory / 'data'
-    file_names.extend(data_directory.rglob('*'))
+    file_names.append(os.path.join(directory, 'indexlc.txt'))
+    file_names.append(os.path.join(directory, 'Qindexlc.txt'))
+    
+    for root, dirs, files in os.walk(os.path.join(directory, 'data')):
+        for file in files:
+            file_names.append(os.path.join(root, file))
 
     for filename in file_names:
         my_encoding = find_encoding(filename)
@@ -59,28 +60,27 @@ def load_data():
 
 # Save the vocabulary, IDF values, documents, and inverted index into separate text files
 def save_data(vocab, documents, inverted_index):
-    output_dir = Path('tf-idf_lc')
-    output_dir.mkdir(exist_ok=True)
-
     # Save the vocab in a text file
-    with open(output_dir / 'vocab_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/vocab_lc.txt')) as f:
-        f.write('\n'.join(vocab.keys()))
+    with open('tf-idf_lc/vocab_lc.txt', 'w', encoding='utf-8') as f:
+        for key in vocab.keys():
+            f.write("%s\n" % key)
 
     # Save the idf values in a text file
-    with open(output_dir / 'idf-values_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/idf-values_lc.txt')) as f:
-        f.write('\n'.join(str(vocab[key]) for key in vocab.keys()))
+    with open('tf-idf_lc/idf-values_lc.txt', 'w', encoding='utf-8') as f:
+        for key in vocab.keys():
+            f.write("%s\n" % vocab[key])
 
     # Save the documents in a text file
-    with open(output_dir / 'documents_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/documents_lc.txt')) as f:
-        f.write('\n'.join(' '.join(document) for document in documents))
-
+    with open('tf-idf_lc/documents_lc.txt', 'w', encoding='utf-8') as f:
+        for document in documents:
+            f.write("%s\n" % ' '.join(document))
+            
     # Save the inverted index in a text file
-    with open(output_dir / 'inverted-index_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/inverted-index_lc.txt')) as f:
-        for key, value in inverted_index.items():
-            f.write(f"{key}\n")
-            f.write(' '.join(str(doc_id) for doc_id in value))
-            f.write('\n')
-
+    with open('tf-idf_lc/inverted-index_lc.txt', 'w', encoding='utf-8') as f:
+        for key in inverted_index.keys():
+            f.write("%s\n" % key)
+            f.write("%s\n" % ' '.join([str(doc_id) for doc_id in inverted_index[key]]))
+            
 # Load the vocabulary and IDF values from the text files
 def load_vocab():
     vocab = {}
