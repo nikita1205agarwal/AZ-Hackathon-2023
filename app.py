@@ -187,7 +187,7 @@ def calculate_sorted_order_of_documents(query_terms):
             sorted_documents.append((doc_index, heading_text, url_text))
 
         return sorted_documents
-                '''
+        '''
             heading_text = fetch_text_by_index(heading, index)
             if heading_text is None:
                 continue
@@ -271,7 +271,7 @@ def search():
     # Perform the search using the loaded data
     search_results, documents = search_query(query)
     return render_template('results.html', query=query, results=search_results, documents=documents)
- '''   
+'''   
 @app.route('/problem/<int:problem_id>')
 def problem(problem_id):
     if 0 <= problem_id < len(documents):
