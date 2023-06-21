@@ -199,7 +199,13 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        query = request.form['query']
+        return redirect(f'/search?q={query}')
+    return render_template('index.html')
+'''
 @app.route('/search', methods=['POST'])
 def search():
     query_string = request.form['keywords']
@@ -212,8 +218,24 @@ def search():
         results.append({'heading': doc[1], 'url': doc[2], 'index': doc_index})
 
     return render_template('results.html', documents=results)
+'''
 
+@app.route('/search')
+def search():
+    query = request.args.get('q')
+    if not query:
+        return redirect('/')
+    
+    # Perform the search using the loaded data
+    search_results = search_query(query)
+    return render_template('search.html', query=query, results=search_results)
 
+def search_query(query):
+    # Implementation of the search query logic
+    # Use the loaded data (vocab_idf_values, documents, inverted_index) to perform the search
+    # Return the search results
+    pass
+    
 @app.route('/problem/<int:problem_id>')
 def problem(problem_id):
     if 0 <= problem_id < len(documents):
