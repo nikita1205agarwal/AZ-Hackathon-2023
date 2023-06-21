@@ -61,22 +61,22 @@ def load_data():
 # Save the vocabulary, IDF values, documents, and inverted index into separate text files
 def save_data(vocab, documents, inverted_index):
     # Save the vocab in a text file
-    with open('tf-idf_lc/vocab_lc.txt', 'w', encoding='utf-8') as f:
+    with open('tf-idf_lc/vocab_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/vocab_lc.txt')) as f:
         for key in vocab.keys():
             f.write("%s\n" % key)
 
     # Save the idf values in a text file
-    with open('tf-idf_lc/idf-values_lc.txt', 'w', encoding='utf-8') as f:
+    with open('tf-idf_lc/idf-values_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/idf-values_lc.txt')) as f:
         for key in vocab.keys():
             f.write("%s\n" % vocab[key])
 
     # Save the documents in a text file
-    with open('tf-idf_lc/documents_lc.txt', 'w', encoding='utf-8') as f:
+    with open('tf-idf_lc/documents_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/documents_lc.txt')) as f:
         for document in documents:
             f.write("%s\n" % ' '.join(document))
             
     # Save the inverted index in a text file
-    with open('tf-idf_lc/inverted-index_lc.txt', 'w', encoding='utf-8') as f:
+    with open('tf-idf_lc/inverted-index_lc.txt', 'w', encoding=find_encoding('tf-idf_lc/inverted-index_lc.txt')) as f:
         for key in inverted_index.keys():
             f.write("%s\n" % key)
             f.write("%s\n" % ' '.join([str(doc_id) for doc_id in inverted_index[key]]))
@@ -84,9 +84,9 @@ def save_data(vocab, documents, inverted_index):
 # Load the vocabulary and IDF values from the text files
 def load_vocab():
     vocab = {}
-    with open('tf-idf_lc/vocab_lc.txt', 'r', encoding='utf-8') as f:
+    with open('tf-idf_lc/vocab_lc.txt', 'r', encoding=find_encoding('tf-idf_lc/vocab_lc.txt')) as f:
         vocab_terms = f.readlines()
-    with open('tf-idf_lc/idf-values_lc.txt', 'r', encoding='utf-8') as f:
+    with open('tf-idf_lc/idf-values_lc.txt', 'r', encoding=find_encoding('tf-idf_lc/idf-values_lc.txt')) as f:
         idf_values = f.readlines()
 
     for (term, idf_value) in zip(vocab_terms, idf_values):
@@ -95,14 +95,14 @@ def load_vocab():
 
 # Load the preprocessed documents from the text file
 def load_documents():
-    with open('tf-idf_lc/documents_lc.txt', 'r', encoding='utf-8') as f:
+    with open('tf-idf_lc/documents_lc.txt', 'r', encoding=find_encoding('tf-idf_lc/documents_lc.txt')) as f:
         documents = [document.strip().split() for document in f.readlines()]
     return documents
 
 # Load the inverted index from a text file
 def load_inverted_index():
     inverted_index = {}
-    with open('tf-idf_lc/inverted-index_lc.txt', 'r', encoding='utf-8') as f:
+    with open('tf-idf_lc/inverted-index_lc.txt', 'r', encoding=find_encoding('tf-idf_lc/inverted-index_lc.txt')) as f:
         inverted_index_terms = f.readlines()
 
     for row_num in range(0, len(inverted_index_terms), 2):
