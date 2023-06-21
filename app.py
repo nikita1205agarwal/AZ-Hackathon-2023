@@ -219,7 +219,23 @@ def search():
 
     return render_template('results.html', documents=results)
 '''
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('q')
+    if not query:
+        return redirect('/')
+    
+    # Perform the search using the loaded data
+    search_results = search_query(query)
+    return render_template('results.html', query=query, results=search_results, documents=documents)
 
+def search_query(query):
+    query_terms = [term.lower() for term in query.strip().split()]
+    sorted_documents = calculate_sorted_order_of_documents(query_terms)
+    return sorted_documents, documents
+
+
+'''
 @app.route('/search', methods=['GET', 'POST'])
 def search_query(query):
     query_terms = [term.lower() for term in query.strip().split()]
@@ -238,7 +254,7 @@ def search():
     # Perform the search using the loaded data
     search_results, documents = search_query(query)
     return render_template('results.html', query=query, results=search_results, documents=documents)
-    
+ '''   
 @app.route('/problem/<int:problem_id>')
 def problem(problem_id):
     if 0 <= problem_id < len(documents):
