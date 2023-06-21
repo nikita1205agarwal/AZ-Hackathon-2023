@@ -236,7 +236,7 @@ def search():
     search_results = search_query(query)
     results = []
     for doc_index, doc in enumerate(search_results):
-        results.append({'heading': doc[1], 'url': doc[2], 'index': doc_index})
+        results.append({'heading': doc[0], 'url': doc[1], 'index': doc_index})
 
     return render_template('results.html', documents=results)
     #return render_template('results.html', query=query, documents=search_results)
