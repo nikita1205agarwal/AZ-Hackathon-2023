@@ -220,6 +220,22 @@ def index():
         query = request.form['q']
         return redirect(f'/search?q={query}')
     return render_template('index.html')
+
+def search_query(query):
+    query_terms = [term.lower() for term in query.strip().split()]
+    sorted_documents = calculate_sorted_order_of_documents(query_terms)
+    return sorted_documents
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('q')
+    if not query:
+        return redirect('/')
+
+    # Perform the search using the loaded data
+    search_results = search_query(query)
+    return render_template('results.html', query=query, documents=search_results)
+
 '''
 @app.route('/search', methods=['POST'])
 def search():
@@ -233,17 +249,6 @@ def search():
         results.append({'heading': doc[1], 'url': doc[2], 'index': doc_index})
 
     return render_template('results.html', documents=results)
-'''
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    query = request.args.get('q')
-    if not query:
-        return redirect('/')
-    
-    # Perform the search using the loaded data
-    search_results = calculate_sorted_order_of_documents(query.strip().split())
-    return render_template('results.html', documents=search_results)
-'''
 def search_query(query):
     query_terms = [term.lower() for term in query.strip().split()]
     sorted_documents = calculate_sorted_order_of_documents(query_terms)
