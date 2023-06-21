@@ -217,7 +217,7 @@ def home():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        query = request.form['query']
+        query = request.form['q']
         return redirect(f'/search?q={query}')
     return render_template('index.html')
 '''
