@@ -234,7 +234,12 @@ def search():
 
     # Perform the search using the loaded data
     search_results = search_query(query)
-    return render_template('results.html', query=query, documents=search_results)
+    results = []
+    for doc_index, doc in enumerate(search_results):
+        results.append({'heading': doc[1], 'url': doc[2], 'index': doc_index})
+
+    return render_template('results.html', documents=results)
+    #return render_template('results.html', query=query, documents=search_results)
 
 '''
 @app.route('/search', methods=['POST'])
