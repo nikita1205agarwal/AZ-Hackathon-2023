@@ -220,7 +220,7 @@ def search():
     return render_template('results.html', documents=results)
 '''
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.args.get('q')
     if not query:
