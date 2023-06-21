@@ -169,11 +169,25 @@ def calculate_sorted_order_of_documents(query_terms):
 
         sorted_documents = []
 
-        heading = 'Qdatalc/indexlc.txt'
-        link = 'Qdatalc/Qindexlc.txt'
+        heading_path = 'Qdatalc/Qindexlc.txt'
+        link_path = 'Qdatalc/Qindexlc.txt'
+
+        with open(heading_path, 'r', encoding=find_encoding(heading_path)) as f:
+            headings = f.readlines()
+
+        with open(link_path, 'r', encoding=find_encoding(link_path)) as f:
+            links = f.readlines()
        
         for doc_index in potential_documents:
             index=int(doc_index)-1
+            if index >= len(headings) or index >= len(links):
+                continue
+            heading_text = headings[index].strip()
+            url_text = links[index].strip()
+            sorted_documents.append((doc_index, heading_text, url_text))
+
+        return sorted_documents
+                '''
             heading_text = fetch_text_by_index(heading, index)
             if heading_text is None:
                 continue
@@ -181,6 +195,7 @@ def calculate_sorted_order_of_documents(query_terms):
             sorted_documents.append((doc_index, heading_text, url_text))
 
         return sorted_documents
+        '''
 
 # Load the data if not already loaded
 def load_and_process_data():
@@ -226,16 +241,13 @@ def search():
         return redirect('/')
     
     # Perform the search using the loaded data
-    search_results = search_query(query)
-    return render_template('results.html', query=query, results=search_results, documents=documents)
-
+    search_results = calculate_sorted_order_of_documents(query.strip().split())
+    return render_template('results.html', documents=search_results)
+'''
 def search_query(query):
     query_terms = [term.lower() for term in query.strip().split()]
     sorted_documents = calculate_sorted_order_of_documents(query_terms)
     return sorted_documents, documents
-
-
-'''
 @app.route('/search', methods=['GET', 'POST'])
 def search_query(query):
     query_terms = [term.lower() for term in query.strip().split()]
